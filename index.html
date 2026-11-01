@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>有一個祕密想對你說...</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #d9534f;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            line-height: 1.4;
+        }
+        .buttons-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            height: 150px;
+        }
+        button {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            font-weight: bold;
+            touch-action: none; /* 防止手機瀏覽器預留觸控延遲 */
+        }
+        #yes {
+            background-color: #ff4d4d;
+            color: white;
+            position: absolute;
+            left: 10%;
+            top: 20px;
+            width: 100px;
+        }
+        #no {
+            background-color: #8e8e93;
+            color: white;
+            position: absolute;
+            right: 10%;
+            top: 20px;
+            width: 100px;
+            transition: all 0.1s ease;
+        }
+        .success-text {
+            font-size: 2.5rem;
+            color: #ff4d4d;
+            animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-box">
+        <h1 id="title">你願意當我的另一半嗎？ ❤️</h1>
+        <div class="buttons-container">
+            <button id="yes" onclick="confess()">好</button>
+            <button id="no" ontouchstart="escape()" onmouseover="escape()">唔好</button>
+        </div>
+    </div>
+
+    <script>
+        function escape() {
+            const noBtn = document.getElementById('no');
+            // 限制在螢幕可視範圍內隨機移動
+            const padding = 20;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            const randomX = Math.max(padding, Math.random() * maxX);
+            const randomY = Math.max(padding, Math.random() * maxY);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function confess() {
+            const box = document.getElementById('game-box');
+            box.innerHTML = `
+                <div class="success-text">❤️❤️❤️</div>
+                <h1 style="margin-top:20px; color:#fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.2);">
+                    🎉 耶！我就知道你一定會答應！<br><br>
+                    往後餘生，請多指教。<br>
+                    Let's code our future together!
+                </h1>
+                <div class="success-text" style="margin-top:20px;">❤️❤️❤️</div>
+            `;
+            document.body.style.background = '#ff4d4d';
+        }
+    </script>
+</body>
+</html>
